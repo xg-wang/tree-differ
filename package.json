@@ -1,0 +1,11 @@
+{
+  "name": "tree-differ",
+  "version": "1.0.0",
+  "main": "main.js",
+  "repository": "https://github.com/xg-wang/tree-differ",
+  "author": "Xingan Wang <wangxgwxg@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^10.1.0"
+  }
+}
