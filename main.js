@@ -7,10 +7,10 @@ fs.readFile('html_files/bootstrap.html', (err, data) => {
     if (err) {
         throw err
     }
-    const sourceString = data.toString()
-    const source = new JSDOM(sourceString).window.document.body
-    const targetString = sourceString.slice(0)
+    const baseString = data.toString()
+    const base = new JSDOM(baseString).window.document.body
+    const targetString = baseString.slice(0)
     const target = new JSDOM(targetString).window.document.body
 
-    reconcilliation.diff(source, target)
+    reconcilliation.diff(base, target)
 })
