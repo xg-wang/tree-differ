@@ -12,5 +12,6 @@ fs.readFile('html_files/bootstrap.html', (err, data) => {
     const targetString = baseString.slice(0)
     const target = new JSDOM(targetString).window.document.body
 
-    reconcilliation.diff(base, target)
+    changes = reconcilliation.diff(base, target)
+    console.log(changes)
 })
