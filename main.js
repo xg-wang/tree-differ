@@ -3,15 +3,23 @@ const reconcilliation = require('./lib/reconciliation')
 const jsdom = require("jsdom")
 const {JSDOM} = jsdom
 
-fs.readFile('html_files/bootstrap.html', (err, data) => {
-    if (err) {
-        throw err
-    }
-    const baseString = data.toString()
-    const base = new JSDOM(baseString).window.document.body
-    const targetString = baseString.slice(0)
-    const target = new JSDOM(targetString).window.document.body
+function readFileString(fileName) {
+    return new Promise(function(resolve, reject) {
+        fs.readFile(fileName, (err, data) => {
+            if (err) {
+                return reject(err)
+            }
+            resolve(data.toString())
+        })
+    })
+}
 
-    changes = reconcilliation.diff(base, target)
+Promise.all([
+    readFileString('html_files/github1.html'),
+    readFileString('html_files/github3.html')
+]).then(values => {
+    const base = new JSDOM(values[0]).window.document.body
+    const target = new JSDOM(values[1]).window.document.body
+    const changes = reconcilliation.diff(target, base)
     console.log(changes)
 })
