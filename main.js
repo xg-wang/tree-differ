@@ -22,4 +22,12 @@ Promise.all([
     const target = new JSDOM(values[1]).window.document.body
     const changes = reconcilliation.diff(target, base)
     console.log(changes)
+
+    reconcilliation.apply(changes)
+    var eq = base.isEqualNode(target)
+    if (eq) {
+        console.log("Diff & Apply Success ~")
+    } else {
+        console.log("Diff & Apply Error!!!!!!!")
+    }
 })
