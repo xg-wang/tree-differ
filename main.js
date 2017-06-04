@@ -15,8 +15,8 @@ function readFileString(fileName) {
 }
 
 Promise.all([
-    readFileString('html_files/github1.html'),
-    readFileString('html_files/github3.html')
+    readFileString('html_files/a.html'),
+    readFileString('html_files/b.html')
 ]).then(values => {
     const base = new JSDOM(values[0]).window.document.body
     const target = new JSDOM(values[1]).window.document.body
