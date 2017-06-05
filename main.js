@@ -17,8 +17,8 @@ function readFileString(fileName) {
 // TODO add test cases: removeChildElement, insertChildElement, moveChildElement
 
 Promise.all([
-    readFileString('html_files/a.html'),
-    readFileString('html_files/b.html')
+    readFileString('html_files/list1.html'),
+    readFileString('html_files/list2.html')
 ]).then(values => {
     const base = new JSDOM(values[0]).window.document.body
     const target = new JSDOM(values[1]).window.document.body
