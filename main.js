@@ -14,20 +14,38 @@ function readFileString(fileName) {
     })
 }
 
+// TODO add test cases: removeChildElement, insertChildElement, moveChildElement
+
 Promise.all([
     readFileString('html_files/a.html'),
     readFileString('html_files/b.html')
 ]).then(values => {
     const base = new JSDOM(values[0]).window.document.body
     const target = new JSDOM(values[1]).window.document.body
-    const changes = reconcilliation.diff(target, base)
-    console.log(changes)
 
+    var changes
+
+    changes = reconcilliation.diff(target, base)
     reconcilliation.apply(changes)
-    var eq = base.isEqualNode(target)
-    if (eq) {
+    console.log(changes)
+    if (base.isEqualNode(target)) {
         console.log("Diff & Apply Success ~")
     } else {
         console.log("Diff & Apply Error!!!!!!!")
     }
+
+    changes = reconcilliation.diff(target, base)
+    reconcilliation.apply(changes)
+    console.log(changes)
+    if (base.isEqualNode(target)) {
+        console.log("Diff & Apply Success ~")
+    } else {
+        console.log("Diff & Apply Error!!!!!!!")
+    }
+
+    // fs.writeFile("html_files/result.html", base.innerHTML, function(err) {})
+
+
+
+
 })
