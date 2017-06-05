@@ -26,22 +26,22 @@ Promise.all([
     var changes
 
     changes = reconcilliation.diff(target, base)
+    console.dir(changes, {depth: 3, colors: true})
     reconcilliation.apply(changes)
-    console.log(changes)
     if (base.isEqualNode(target)) {
         console.log("Diff & Apply Success ~")
     } else {
         console.log("Diff & Apply Error!!!!!!!")
     }
 
-    changes = reconcilliation.diff(target, base)
-    reconcilliation.apply(changes)
-    console.log(changes)
-    if (base.isEqualNode(target)) {
-        console.log("Diff & Apply Success ~")
-    } else {
-        console.log("Diff & Apply Error!!!!!!!")
-    }
+    // changes = reconcilliation.diff(target, base)
+    // reconcilliation.apply(changes)
+    // console.log(changes)
+    // if (base.isEqualNode(target)) {
+    //     console.log("Diff & Apply Success ~")
+    // } else {
+    //     console.log("Diff & Apply Error!!!!!!!")
+    // }
 
     // fs.writeFile("html_files/result.html", base.innerHTML, function(err) {})
 
