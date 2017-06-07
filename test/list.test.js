@@ -1,7 +1,7 @@
 const fs = require('fs')
 const assert = require('assert')
-const jsdom = require("jsdom")
-const {JSDOM} = jsdom;
+const {JSDOM} = require("jsdom")
+const {readFileString} = require('../lib/utils')
 
 describe('List test', function() {
   var list1, list2;
@@ -31,14 +31,3 @@ describe('List test', function() {
     assert(base.isEqualNode(target), 'applied base should equal target')
   })
 })
-
-function readFileString(fileName) {
-  return new Promise(function(resolve, reject) {
-    fs.readFile(fileName, (err, data) => {
-      if (err) {
-          return reject(err)
-      }
-      resolve(data.toString())
-    })
-  })
-}

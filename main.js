@@ -1,19 +1,8 @@
 const assert = require('assert')
 const fs = require('fs')
 const reconciliation = require('./lib/reconciliation')
-const jsdom = require("jsdom")
-const {JSDOM} = jsdom
-
-function readFileString(fileName) {
-    return new Promise(function(resolve, reject) {
-        fs.readFile(fileName, (err, data) => {
-            if (err) {
-                return reject(err)
-            }
-            resolve(data.toString())
-        })
-    })
-}
+const {JSDOM} = require("jsdom")
+const {readFileString} = require('./lib/utils')
 
 // TODO add test cases: removeChildElement, insertChildElement, moveChildElement
 
