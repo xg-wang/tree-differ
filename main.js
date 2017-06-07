@@ -22,11 +22,14 @@ Promise.all([
 ]).then(values => {
     let base = new JSDOM(values[0]).window.document.body
     const target = new JSDOM(values[1]).window.document.body
+    const targetClone = target.cloneNode(true)
 
     const changes = reconcilliation.diff(target, base)
+    console.log('target is same', target.isEqualNode(targetClone))
     console.dir(changes, {depth: 3, colors: true})
     base = reconcilliation.apply(base, changes)
-    if (base.isEqualNode(target)) {
+    console.log('target is same', target.isEqualNode(targetClone))
+    if (base.isEqualNode(targetClone)) {
         console.log("Diff & Apply Success ~")
     } else {
         console.log("Diff & Apply Error!!!!!!!")
