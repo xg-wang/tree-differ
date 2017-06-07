@@ -5,8 +5,13 @@
   "repository": "https://github.com/xg-wang/tree-differ",
   "author": "Xingan Wang <wangxgwxg@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
     "jsdom": "^10.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "^3.4.2"
+  }
 }

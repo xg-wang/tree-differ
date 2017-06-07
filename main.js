@@ -1,6 +1,6 @@
 const assert = require('assert')
 const fs = require('fs')
-const reconcilliation = require('./lib/reconciliation')
+const reconciliation = require('./lib/reconciliation')
 const jsdom = require("jsdom")
 const {JSDOM} = jsdom
 
@@ -25,11 +25,11 @@ Promise.all([
     const target = new JSDOM(values[1]).window.document.body
     const targetClone = target.cloneNode(true)
 
-    const changes = reconcilliation.diff(target, base)
+    const changes = reconciliation.diff(target, base)
     assert(target.isEqualNode(targetClone), 'target is same')
     // console.dir(changes, {depth: 3, colors: true})
 
-    base = reconcilliation.apply(base, changes)
+    base = reconciliation.apply(base, changes)
     assert(target.isEqualNode(targetClone), 'target is same')
 
     assert(base.isEqualNode(target), 'applied base should equal target')
