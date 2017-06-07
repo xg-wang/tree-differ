@@ -23,9 +23,7 @@ Promise.all([
     let base = new JSDOM(values[0]).window.document.body
     const target = new JSDOM(values[1]).window.document.body
 
-    var changes
-
-    changes = reconcilliation.diff(target, base)
+    const changes = reconcilliation.diff(target, base)
     console.dir(changes, {depth: 3, colors: true})
     base = reconcilliation.apply(base, changes)
     if (base.isEqualNode(target)) {
