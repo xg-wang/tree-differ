@@ -19,7 +19,7 @@ Promise.all([
     assert(target.isEqualNode(targetClone), 'target is same')
     // console.dir(changes, {depth: 3, colors: true})
 
-    base = reconciliation.apply(base, changes)
+    base = zhsh.apply(base, changes)
     assert(target.isEqualNode(targetClone), 'target is same')
 
     assert(base.isEqualNode(target), 'applied base should equal target')
