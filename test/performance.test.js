@@ -11,12 +11,12 @@ const {readFileString} = require('../lib/utils')
 const createTestSuite = function(mochaInstance, moduleName) {
     const suiteInstance = Mocha.Suite.create(mochaInstance.suite, 'Performance Test Suite for ' + moduleName);
 
-    const dirStubs = []
+    const dirStubs = [];
 
-    const dirRoot = '../html_files/performance'
+    const dirRoot = 'html_files/performance';
     fs.readdirSync(dirRoot).forEach(dir => {
         dirStubs.push(dir)
-    })
+    });
 
     dirStubs.forEach(dirStub => {
 
@@ -59,7 +59,10 @@ const createTestSuite = function(mochaInstance, moduleName) {
     })
 };
 
-const mochaInstance = new Mocha();
+const mochaInstance = new Mocha({
+    ui: 'bdd',
+    reporter: 'spec'
+});
 createTestSuite(mochaInstance, 'reconciliation');
 createTestSuite(mochaInstance, 'zhsh');
 
