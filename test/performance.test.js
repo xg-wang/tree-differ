@@ -6,7 +6,9 @@ const Mocha = require('mocha');
 const Chai = require('chai');
 const Test = Mocha.Test;
 const expect = Chai.expect;
-const {readFileString} = require('../lib/utils')
+const {readFileString} = require('../lib/utils');
+const assert = require('assert')
+const {JSDOM} = require("jsdom")
 
 const createTestSuite = function(mochaInstance, moduleName) {
     const suiteInstance = Mocha.Suite.create(mochaInstance.suite, 'Performance Test Suite for ' + moduleName);
@@ -24,7 +26,7 @@ const createTestSuite = function(mochaInstance, moduleName) {
 
         suiteInstance.addTest(new Test(dirStub, function () {
             let baseHtml, targetHtml;
-            return Promise.all([
+            Promise.all([
                 readFileString(dirFullPath + '/base.html'),
                 readFileString(dirFullPath + '/target.html')
             ]).then(values => {
@@ -33,8 +35,8 @@ const createTestSuite = function(mochaInstance, moduleName) {
             });
 
             const theModule = require('../lib/' + moduleName);
-            let base = new JSDOM(base).window.document.body;
-            const target = new JSDOM(list2).window.document.body;
+            let base = new JSDOM(baseHtml).window.document.body;
+            const target = new JSDOM(targetHtml).window.document.body;
             const targetClone = target.cloneNode(true);
 
             const start = +new Date();
