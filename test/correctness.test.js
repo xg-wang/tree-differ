@@ -11,18 +11,18 @@ const {readFileString} = require('../lib/utils')
 var mochaInstance = new Mocha();
 var suiteInstance = Mocha.Suite.create(mochaInstance.suite, 'Correctness Test Suite');
 
-var inputDirs = []
+var dirStubs = []
 
-var dirCorrectness = '../html_files/correctness'
-fs.readdirSync(dirCorrectness).forEach(dir => {
-    inputDirs.push(dir)
+var dirRoot = '../html_files/correctness'
+fs.readdirSync(dirRoot).forEach(dir => {
+    dirStubs.push(dir)
 })
 
-inputDirs.forEach(inputDir => {
+dirStubs.forEach(dirStub => {
 
-    var dirFullPath = dirCorrectness + '/' + inputDir;
+    var dirFullPath = dirRoot + '/' + dirStub;
 
-    suiteInstance.addTest(new Test(inputDir, function(){
+    suiteInstance.addTest(new Test(dirStub, function(){
         var baseHtml, targetHtml;
         return Promise.all([
             readFileString(dirFullPath + '/base.html'),
