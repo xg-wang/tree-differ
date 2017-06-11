@@ -1,259 +1,38 @@
-/**
- * Created by shihaoxu on 6/10/17.
- */
+const fs = require('fs')
+const Mocha = require('mocha')
+const assert = require('assert')
+const {JSDOM} = require('jsdom')
+const reconciliation = require('../lib/reconciliation')
+const zhsh = require('../lib/zhsh')
 
-const fs = require('fs');
-const assert = require('assert');
-const {JSDOM} = require("jsdom");
-const {readFileString} = require('../lib/utils');
+describe('performance tests', function() {
+  const dirRoot = './html_files/performance';
+  const dirs = fs.readdirSync(dirRoot).filter(dir => !dir.startsWith('.'))
 
-describe('firebase test', function() {
-    let baseHtml, targetHtml;
-
-    before(function () {
-        Promise.all([
-            readFileString('./html_files/performance/firebase/base.html'),
-            readFileString('./html_files/performance/firebase/target.html')
-        ]).then(values => {
-            baseHtml = values[0];
-            targetHtml = values[1];
+  for (let dir of dirs) {
+    describe(`${dir}`, function() {
+      describe('reconcilliation', function() {
+        let base = null, target = null, changes = null
+        before(function() {
+          const baseString = fs.readFileSync(`${dirRoot}/${dir}/base.html`, {encoding: 'utf8'})
+          const targetString = fs.readFileSync(`${dirRoot}/${dir}/target.html`, {encoding: 'utf8'})
+          base = new JSDOM(baseString).window.document.body
+          target = new JSDOM(targetString).window.document.body
         })
-    });
 
-    describe('Reconciliation test', function() {
-        let reconciliation, base, target, targetClone, changes;
-
-        before(function () {
-            reconciliation = require('../lib/reconciliation');
-            base = new JSDOM(baseHtml).window.document.body;
-            target = new JSDOM(targetHtml).window.document.body;
-            targetClone = target.cloneNode(true);
-        });
-
-        it('diff', function() {
-            changes = reconciliation.diff(target, base);
-        });
-
-        it('apply', function() {
-            assert(changes);
-            base = reconciliation.apply(base, changes);
-        });
-
-        after(function() {
-            assert(target.isEqualNode(targetClone), 'target is same');
-            assert(base.isEqualNode(target), 'applied base should equal target')
+        it('diff time', function() {
+          changes = reconciliation.diff(target, base)
         })
+
+        it('total time', function() {
+          base = reconciliation.apply(base, changes)
+        })
+
+        after('base should equal target after apply', function() {
+          assert(base.isEqualNode(target))
+        })
+      })
+
     })
-
-    describe('Zhsh test', function() {
-        let zhsh, base, target, targetClone, changes;
-
-        before(function () {
-            zhsh = require('../lib/zhsh');
-            base = new JSDOM(baseHtml).window.document.body;
-            target = new JSDOM(targetHtml).window.document.body;
-            targetClone = target.cloneNode(true);
-        });
-
-        it('diff', function() {
-            changes = zhsh.diff(target, base);
-        });
-
-        it('apply', function() {
-            assert(changes);
-            base = zhsh.apply(base, changes);
-        });
-
-        after(function() {
-            assert(target.isEqualNode(targetClone), 'target is same');
-            assert(base.isEqualNode(target), 'applied base should equal target')
-        })
-    })
-});
-
-describe('github test', function() {
-    let baseHtml, targetHtml;
-
-    before(function () {
-        Promise.all([
-            readFileString('./html_files/performance/github/base.html'),
-            readFileString('./html_files/performance/github/target.html')
-        ]).then(values => {
-            baseHtml = values[0];
-            targetHtml = values[1];
-        })
-    });
-
-    describe('Reconciliation test', function() {
-        let reconciliation, base, target, targetClone, changes;
-
-        before(function () {
-            reconciliation = require('../lib/reconciliation');
-            base = new JSDOM(baseHtml).window.document.body;
-            target = new JSDOM(targetHtml).window.document.body;
-            targetClone = target.cloneNode(true);
-        });
-
-        it('diff', function() {
-            changes = reconciliation.diff(target, base);
-        });
-
-        it('apply', function() {
-            base = reconciliation.apply(base, changes);
-        });
-
-        after(function() {
-            assert(target.isEqualNode(targetClone), 'target is same');
-            assert(base.isEqualNode(target), 'applied base should equal target')
-        })
-    });
-
-    describe('Zhsh test', function() {
-        let zhsh, base, target, targetClone, changes;
-
-        before(function () {
-            zhsh = require('../lib/zhsh');
-            base = new JSDOM(baseHtml).window.document.body;
-            target = new JSDOM(targetHtml).window.document.body;
-            targetClone = target.cloneNode(true);
-        });
-
-        it('diff', function() {
-            changes = zhsh.diff(target, base);
-        });
-
-        it('apply', function() {
-            base = zhsh.apply(base, changes);
-        });
-
-        after(function() {
-            assert(target.isEqualNode(targetClone), 'target is same');
-            assert(base.isEqualNode(target), 'applied base should equal target')
-        })
-    });
-});
-
-describe('wsj test', function() {
-    let baseHtml, targetHtml;
-
-    before(function () {
-        Promise.all([
-            readFileString('./html_files/performance/wsj/base.html'),
-            readFileString('./html_files/performance/wsj/target.html')
-        ]).then(values => {
-            baseHtml = values[0];
-            targetHtml = values[1];
-        })
-    });
-
-    describe('Reconciliation test', function() {
-        let reconciliation, base, target, targetClone, changes;
-
-        before(function () {
-            reconciliation = require('../lib/reconciliation');
-            base = new JSDOM(baseHtml).window.document.body;
-            target = new JSDOM(targetHtml).window.document.body;
-            targetClone = target.cloneNode(true);
-        });
-
-        it('diff', function() {
-            changes = reconciliation.diff(target, base);
-        });
-
-        it('apply', function() {
-            base = reconciliation.apply(base, changes);
-        });
-
-        after(function() {
-            assert(target.isEqualNode(targetClone), 'target is same');
-            assert(base.isEqualNode(target), 'applied base should equal target')
-        })
-    });
-
-    describe('Zhsh test', function() {
-        let zhsh, base, target, targetClone, changes;
-
-        before(function () {
-            zhsh = require('../lib/zhsh');
-            base = new JSDOM(baseHtml).window.document.body;
-            target = new JSDOM(targetHtml).window.document.body;
-            targetClone = target.cloneNode(true);
-        });
-
-        it('diff', function() {
-            changes = zhsh.diff(target, base);
-        });
-
-        it('apply', function() {
-            base = zhsh.apply(base, changes);
-        });
-
-        after(function() {
-            assert(target.isEqualNode(targetClone), 'target is same');
-            assert(base.isEqualNode(target), 'applied base should equal target')
-        })
-    });
-});
-
-
-describe('wsj test', function() {
-    let baseHtml, targetHtml;
-
-    before(function () {
-        Promise.all([
-            readFileString('./html_files/performance/wsj/base.html'),
-            readFileString('./html_files/performance/wsj/target.html')
-        ]).then(values => {
-            baseHtml = values[0];
-            targetHtml = values[1];
-        })
-    });
-
-    describe('Reconciliation test', function() {
-        let reconciliation, base, target, targetClone, changes;
-
-        before(function () {
-            reconciliation = require('../lib/reconciliation');
-            base = new JSDOM(baseHtml).window.document.body;
-            target = new JSDOM(targetHtml).window.document.body;
-            targetClone = target.cloneNode(true);
-        });
-
-        it('diff', function() {
-            changes = reconciliation.diff(target, base);
-        });
-
-        it('apply', function() {
-            base = reconciliation.apply(base, changes);
-        });
-
-        after(function() {
-            assert(target.isEqualNode(targetClone), 'target is same');
-            assert(base.isEqualNode(target), 'applied base should equal target')
-        })
-    });
-
-    describe('Zhsh test', function() {
-        let zhsh, base, target, targetClone, changes;
-
-        before(function () {
-            zhsh = require('../lib/zhsh');
-            base = new JSDOM(baseHtml).window.document.body;
-            target = new JSDOM(targetHtml).window.document.body;
-            targetClone = target.cloneNode(true);
-        });
-
-        it('diff', function() {
-            changes = zhsh.diff(target, base);
-        });
-
-        it('apply', function() {
-            base = zhsh.apply(base, changes);
-        });
-
-        after(function() {
-            assert(target.isEqualNode(targetClone), 'target is same');
-            assert(base.isEqualNode(target), 'applied base should equal target')
-        })
-    });
+  }
 });

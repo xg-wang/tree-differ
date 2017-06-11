@@ -9,6 +9,7 @@ const {readFileString} = require('./lib/utils')
 // const testsets = 'correctness'
 const testsets = 'performance'
 const testName = 'express'
+const testZHSH = false
 Promise.all([
   readFileString(`./html_files/${testsets}/${testName}/base.html`),
   readFileString(`./html_files/${testsets}/${testName}/target.html`)
@@ -16,14 +17,23 @@ Promise.all([
   let base = new JSDOM(values[0]).window.document.body
   const target = new JSDOM(values[1]).window.document.body
   const targetClone = target.cloneNode(true)
+  let changes = null
 
   console.time('total time')
   console.time('diff time')
-  const changes = zhsh.diff(target, base)
+  if (testZHSH) {
+    changes = zhsh.diff(target, base)
+  } else {
+    changes = reconciliation.diff(target, base)
+  }
   console.timeEnd('diff time')
-  // console.dir(changes, {depth: 3, colors: true})
+
   console.time('apply time')
-  base = zhsh.apply(base, changes)
+  if (testZHSH) {
+    base = zhsh.apply(base, changes)
+  } else {
+    base = reconciliation.apply(base, changes)
+  }
   console.timeEnd('apply time')
   console.timeEnd('total time')
 
