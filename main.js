@@ -6,10 +6,11 @@ const {JSDOM} = require("jsdom")
 const {readFileString} = require('./lib/utils')
 
 // TODO add test cases: removeChildElement, insertChildElement, moveChildElement
-
+const baseDir = './html_files/correctness'
+const testName = 'commentNode'
 Promise.all([
-    readFileString('html_files/newTestCase1.html'),
-    readFileString('html_files/newTestCase2.html')
+    readFileString(`${baseDir}/${testName}/base.html`),
+    readFileString(`${baseDir}/${testName}/target.html`)
 ]).then(values => {
     let base = new JSDOM(values[0]).window.document.body
     const target = new JSDOM(values[1]).window.document.body
