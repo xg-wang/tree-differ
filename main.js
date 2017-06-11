@@ -6,11 +6,12 @@ const {JSDOM} = require("jsdom")
 const {readFileString} = require('./lib/utils')
 
 // TODO add test cases: removeChildElement, insertChildElement, moveChildElement
-const baseDir = './html_files/correctness'
-const testName = 'insertChild2'
+// const testsets = 'correctness'
+const testsets = 'performance'
+const testName = 'express'
 Promise.all([
-  readFileString(`${baseDir}/${testName}/base.html`),
-  readFileString(`${baseDir}/${testName}/target.html`)
+  readFileString(`./html_files/${testsets}/${testName}/base.html`),
+  readFileString(`./html_files/${testsets}/${testName}/target.html`)
 ]).then(values => {
   let base = new JSDOM(values[0]).window.document.body
   const target = new JSDOM(values[1]).window.document.body
