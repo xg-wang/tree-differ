@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-
     <section class="suite">
       <h1>correctness tests</h1>
       <dl>
@@ -205,6 +204,11 @@ assert(base2.isEqualNode(target))</code></pre></dd>
         <section class="suite">
           <h1>Express_trimmed, Zhang Shasha</h1>
           <dl>
+            <dt>diff time</dt>
+            <dd><pre><code>this.timeout(100000)
+changes = zhsh.diff(target, base)</code></pre></dd>
+            <dt>apply time</dt>
+            <dd><pre><code>base = zhsh.apply(base, changes)</code></pre></dd>
           </dl>
         </section>
       </dl>
