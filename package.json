@@ -6,7 +6,7 @@
   "author": "Xingan Wang <wangxgwxg@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha -s 1"
   },
   "dependencies": {
     "chai": "^4.0.2",
