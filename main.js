@@ -7,23 +7,28 @@ const {readFileString} = require('./lib/utils')
 
 // TODO add test cases: removeChildElement, insertChildElement, moveChildElement
 const baseDir = './html_files/correctness'
-const testName = 'commentNode'
+const testName = 'insertChild2'
 Promise.all([
-    readFileString(`${baseDir}/${testName}/base.html`),
-    readFileString(`${baseDir}/${testName}/target.html`)
+  readFileString(`${baseDir}/${testName}/base.html`),
+  readFileString(`${baseDir}/${testName}/target.html`)
 ]).then(values => {
-    let base = new JSDOM(values[0]).window.document.body
-    const target = new JSDOM(values[1]).window.document.body
-    const targetClone = target.cloneNode(true)
+  let base = new JSDOM(values[0]).window.document.body
+  const target = new JSDOM(values[1]).window.document.body
+  const targetClone = target.cloneNode(true)
 
-    const changes = zhsh.diff(target, base)
-    assert(target.isEqualNode(targetClone), 'target is same')
-    // console.dir(changes, {depth: 3, colors: true})
+  console.time('total time')
+  console.time('diff time')
+  const changes = zhsh.diff(target, base)
+  console.timeEnd('diff time')
+  // console.dir(changes, {depth: 3, colors: true})
+  console.time('apply time')
+  base = zhsh.apply(base, changes)
+  console.timeEnd('apply time')
+  console.timeEnd('total time')
 
-    base = zhsh.apply(base, changes)
-    assert(target.isEqualNode(targetClone), 'target is same')
+  assert(target.isEqualNode(targetClone), 'target is same')
+  assert(base.isEqualNode(target), 'applied base should equal target')
 
-    assert(base.isEqualNode(target), 'applied base should equal target')
-
-    // fs.writeFile("html_files/result.html", base.innerHTML, function(err) {})
+}).catch(reason => {
+  console.error(reason)
 })
