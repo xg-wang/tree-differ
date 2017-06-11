@@ -1,4 +1,5 @@
 const assert = require('assert')
+const os = require('os')
 const fs = require('fs')
 const reconciliation = require('./lib/reconciliation')
 const zhsh = require('./lib/zhsh')
@@ -16,9 +17,9 @@ Promise.all([
 ]).then(values => {
   let base = new JSDOM(values[0]).window.document.body
   const target = new JSDOM(values[1]).window.document.body
-  const targetClone = target.cloneNode(true)
   let changes = null
 
+  const startMem = os.freemem()
   console.time('total time')
   console.time('diff time')
   if (testZHSH) {
@@ -28,6 +29,8 @@ Promise.all([
   }
   console.timeEnd('diff time')
 
+  console.log(`changes length: ${changes.length}`)
+
   console.time('apply time')
   if (testZHSH) {
     base = zhsh.apply(base, changes)
@@ -36,9 +39,10 @@ Promise.all([
   }
   console.timeEnd('apply time')
   console.timeEnd('total time')
+  const endMem = os.freemem()
 
-  assert(target.isEqualNode(targetClone), 'target is same')
   assert(base.isEqualNode(target), 'applied base should equal target')
+  console.log(`memory usage: ${endMem - startMem} bytes`)
 
 }).catch(reason => {
   console.error(reason)
