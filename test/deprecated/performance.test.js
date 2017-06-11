@@ -6,7 +6,7 @@ const Mocha = require('mocha');
 const Chai = require('chai');
 const Test = Mocha.Test;
 const expect = Chai.expect;
-const {readFileString} = require('../lib/utils');
+const {readFileString} = require('../../lib/utils');
 const assert = require('assert')
 const {JSDOM} = require("jsdom")
 

@@ -15,7 +15,7 @@ const createTestSuite = function(mochaInstance, moduleName) {
 
     const dirStubs = [];
 
-    const dirRoot = 'html_files/correctness';
+    const dirRoot = '../html_files/correctness';
     fs.readdirSync(dirRoot).forEach(dir => {
         dirStubs.push(dir)
     });
