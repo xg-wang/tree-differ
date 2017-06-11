@@ -257,3 +257,65 @@ describe('wsj test', function() {
         })
     });
 });
+
+describe('hand test', function() {
+    let baseHtml, targetHtml;
+
+    before(function () {
+        Promise.all([
+            readFileString('./html_files/performance/hand/base.html'),
+            readFileString('./html_files/performance/hand/target.html')
+        ]).then(values => {
+            baseHtml = values[0];
+            targetHtml = values[1];
+        })
+    });
+
+    describe('Reconciliation test', function() {
+        let reconciliation, base, target, targetClone, changes;
+
+        before(function () {
+            reconciliation = require('../lib/reconciliation');
+            base = new JSDOM(baseHtml).window.document.body;
+            target = new JSDOM(targetHtml).window.document.body;
+            targetClone = target.cloneNode(true);
+        });
+
+        it('diff', function() {
+            changes = reconciliation.diff(target, base);
+        });
+
+        it('apply', function() {
+            base = reconciliation.apply(base, changes);
+        });
+
+        after(function() {
+            assert(target.isEqualNode(targetClone), 'target is same');
+            assert(base.isEqualNode(target), 'applied base should equal target')
+        })
+    });
+
+    describe('Zhsh test', function() {
+        let zhsh, base, target, targetClone, changes;
+
+        before(function () {
+            zhsh = require('../lib/zhsh');
+            base = new JSDOM(baseHtml).window.document.body;
+            target = new JSDOM(targetHtml).window.document.body;
+            targetClone = target.cloneNode(true);
+        });
+
+        it('diff', function() {
+            changes = zhsh.diff(target, base);
+        });
+
+        it('apply', function() {
+            base = zhsh.apply(base, changes);
+        });
+
+        after(function() {
+            assert(target.isEqualNode(targetClone), 'target is same');
+            assert(base.isEqualNode(target), 'applied base should equal target')
+        })
+    });
+});
