@@ -12,6 +12,7 @@ describe('performance tests', function() {
   for (let dir of dirs) {
     describe(`${dir}`, function() {
       describe('reconcilliation', function() {
+        this.timeout(100000)
         let base = null, target = null, changes = null
         before(function() {
           const baseString = fs.readFileSync(`${dirRoot}/${dir}/base.html`, {encoding: 'utf8'})
