@@ -9,7 +9,6 @@
     "test": "mocha -s 1"
   },
   "dependencies": {
-    "chai": "^4.0.2",
     "jsdom": "^10.1.0",
     "lodash": "^4.17.4"
   },
