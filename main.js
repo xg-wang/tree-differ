@@ -7,7 +7,7 @@ const {readFileString} = require('./lib/utils')
 
 // TODO add test cases: removeChildElement, insertChildElement, moveChildElement
 const baseDir = './html_files/correctness'
-const testName = 'commentNode'
+const testName = 'moveChild'
 Promise.all([
     readFileString(`${baseDir}/${testName}/base.html`),
     readFileString(`${baseDir}/${testName}/target.html`)
