@@ -7,53 +7,49 @@ const Chai = require('chai');
 const Test = Mocha.Test;
 const expect = Chai.expect;
 const {readFileString} = require('../lib/utils');
-const assert = require('assert')
-const {JSDOM} = require("jsdom")
+const assert = require('assert');
+const {JSDOM} = require("jsdom");
 
-const createTestSuite = function(mochaInstance, moduleName) {
-    const suiteInstance = Mocha.Suite.create(mochaInstance.suite, 'Correctness Test Suite for ' + moduleName);
-
+describe('correctness', function() {
     const dirStubs = [];
-
-    const dirRoot = '../html_files/correctness';
+    const dirRoot = './html_files/correctness';
     fs.readdirSync(dirRoot).forEach(dir => {
-        dirStubs.push(dir)
+        dirStubs.push(dir);
     });
 
-    dirStubs.forEach(dirStub => {
+    dirStubs.forEach(function(dirStub) {
+        var moduleNames = ['reconciliation', 'zhsh'];
+        moduleNames.forEach(function(moduleName) {
 
-        const dirFullPath = dirRoot + '/' + dirStub;
+            it(dirStub + ' ' + moduleName, function() {
 
-        suiteInstance.addTest(new Test(dirStub, function(){
-            let baseHtml, targetHtml;
-            Promise.all([
-                readFileString(dirFullPath + '/base.html'),
-                readFileString(dirFullPath + '/target.html')
-            ]).then(values => {
-                baseHtml = values[0];
-                targetHtml = values[1];
+                const dirFullPath = dirRoot + '/' + dirStub;
+
+                let baseHtml, targetHtml;
+                Promise.all([
+                    readFileString(dirFullPath + '/base.html'),
+                    readFileString(dirFullPath + '/target.html')
+                ]).then(values => {
+                    baseHtml = values[0];
+                    targetHtml = values[1];
+                });
+
+                const theModule = require('../lib/' + moduleName);
+                let base = new JSDOM(baseHtml).window.document.body;
+                const target = new JSDOM(targetHtml).window.document.body;
+                const targetClone = target.cloneNode(true);
+
+                const changes = theModule.diff(target, base);
+                assert(target.isEqualNode(targetClone), 'target is same');
+                // console.dir(changes, {depth: 3, colors: true})
+
+                base = theModule.apply(base, changes);
+                assert(target.isEqualNode(targetClone), 'target is same');
+
+                assert(base.isEqualNode(target), 'applied base should equal target');
+
             });
 
-            const theModule = require('../lib/' + moduleName);
-            let base = new JSDOM(baseHtml).window.document.body;
-            const target = new JSDOM(targetHtml).window.document.body;
-            const targetClone = target.cloneNode(true);
-
-            const changes = theModule.diff(target, base);
-            assert(target.isEqualNode(targetClone), 'target is same');
-            // console.dir(changes, {depth: 3, colors: true})
-
-            base = theModule.apply(base, changes);
-            assert(target.isEqualNode(targetClone), 'target is same');
-
-            assert(base.isEqualNode(target), 'applied base should equal target')
-
-        }))
-    })
-};
-
-const mochaInstance = new Mocha();
-createTestSuite(mochaInstance, 'reconciliation');
-createTestSuite(mochaInstance, 'zhsh');
-
-mochaInstance.run();
+        });
+    });
+});

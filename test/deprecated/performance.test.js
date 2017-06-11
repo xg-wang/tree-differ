@@ -1,6 +1,7 @@
 /**
  * Created by shihaoxu on 6/10/17.
  */
+
 const fs = require('fs')
 const Mocha = require('mocha');
 const Chai = require('chai');
