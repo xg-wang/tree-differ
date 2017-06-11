@@ -9,7 +9,7 @@ const {readFileString} = require('./lib/utils')
 // const testsets = 'correctness'
 const testsets = 'performance'
 const testName = 'express'
-const testZHSH = false
+const testZHSH = true
 Promise.all([
   readFileString(`./html_files/${testsets}/${testName}/base.html`),
   readFileString(`./html_files/${testsets}/${testName}/target.html`)
