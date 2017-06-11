@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Report</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+
+    <section class="suite">
+      <h1>correctness tests</h1>
+      <dl>
+        <section class="suite">
+          <h1>commentNode</h1>
+          <dl>
+            <dt>reconcilliation should pass</dt>
+            <dd><pre><code>const changes = reconciliation.diff(target, base)
+base = reconciliation.apply(base, changes)
+assert(base.isEqualNode(target))</code></pre></dd>
+            <dt>zhang shasha should pass</dt>
+            <dd><pre><code>const changes = zhsh.diff(target, base2)
+base2 = zhsh.apply(base2, changes)
+assert(base2.isEqualNode(target))</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>flipParentChild</h1>
+          <dl>
+            <dt>reconcilliation should pass</dt>
+            <dd><pre><code>const changes = reconciliation.diff(target, base)
+base = reconciliation.apply(base, changes)
+assert(base.isEqualNode(target))</code></pre></dd>
+            <dt>zhang shasha should pass</dt>
+            <dd><pre><code>const changes = zhsh.diff(target, base2)
+base2 = zhsh.apply(base2, changes)
+assert(base2.isEqualNode(target))</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>insertChild</h1>
+          <dl>
+            <dt>reconcilliation should pass</dt>
+            <dd><pre><code>const changes = reconciliation.diff(target, base)
+base = reconciliation.apply(base, changes)
+assert(base.isEqualNode(target))</code></pre></dd>
+            <dt>zhang shasha should pass</dt>
+            <dd><pre><code>const changes = zhsh.diff(target, base2)
+base2 = zhsh.apply(base2, changes)
+assert(base2.isEqualNode(target))</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>insertChild2</h1>
+          <dl>
+            <dt>reconcilliation should pass</dt>
+            <dd><pre><code>const changes = reconciliation.diff(target, base)
+base = reconciliation.apply(base, changes)
+assert(base.isEqualNode(target))</code></pre></dd>
+            <dt>zhang shasha should pass</dt>
+            <dd><pre><code>const changes = zhsh.diff(target, base2)
+base2 = zhsh.apply(base2, changes)
+assert(base2.isEqualNode(target))</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>insertLeaf</h1>
+          <dl>
+            <dt>reconcilliation should pass</dt>
+            <dd><pre><code>const changes = reconciliation.diff(target, base)
+base = reconciliation.apply(base, changes)
+assert(base.isEqualNode(target))</code></pre></dd>
+            <dt>zhang shasha should pass</dt>
+            <dd><pre><code>const changes = zhsh.diff(target, base2)
+base2 = zhsh.apply(base2, changes)
+assert(base2.isEqualNode(target))</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>modifyAttrib</h1>
+          <dl>
+            <dt>reconcilliation should pass</dt>
+            <dd><pre><code>const changes = reconciliation.diff(target, base)
+base = reconciliation.apply(base, changes)
+assert(base.isEqualNode(target))</code></pre></dd>
+            <dt>zhang shasha should pass</dt>
+            <dd><pre><code>const changes = zhsh.diff(target, base2)
+base2 = zhsh.apply(base2, changes)
+assert(base2.isEqualNode(target))</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>moveChild</h1>
+          <dl>
+            <dt>reconcilliation should pass</dt>
+            <dd><pre><code>const changes = reconciliation.diff(target, base)
+base = reconciliation.apply(base, changes)
+assert(base.isEqualNode(target))</code></pre></dd>
+            <dt>zhang shasha should pass</dt>
+            <dd><pre><code>const changes = zhsh.diff(target, base2)
+base2 = zhsh.apply(base2, changes)
+assert(base2.isEqualNode(target))</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>nodeType</h1>
+          <dl>
+            <dt>reconcilliation should pass</dt>
+            <dd><pre><code>const changes = reconciliation.diff(target, base)
+base = reconciliation.apply(base, changes)
+assert(base.isEqualNode(target))</code></pre></dd>
+            <dt>zhang shasha should pass</dt>
+            <dd><pre><code>const changes = zhsh.diff(target, base2)
+base2 = zhsh.apply(base2, changes)
+assert(base2.isEqualNode(target))</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>replaceText</h1>
+          <dl>
+            <dt>reconcilliation should pass</dt>
+            <dd><pre><code>const changes = reconciliation.diff(target, base)
+base = reconciliation.apply(base, changes)
+assert(base.isEqualNode(target))</code></pre></dd>
+            <dt>zhang shasha should pass</dt>
+            <dd><pre><code>const changes = zhsh.diff(target, base2)
+base2 = zhsh.apply(base2, changes)
+assert(base2.isEqualNode(target))</code></pre></dd>
+          </dl>
+        </section>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>performance tests</h1>
+      <dl>
+        <section class="suite">
+          <h1>express</h1>
+          <dl>
+            <section class="suite">
+              <h1>reconcilliation</h1>
+              <dl>
+                <dt>diff time</dt>
+                <dd><pre><code>changes = reconciliation.diff(target, base)</code></pre></dd>
+                <dt>apply time</dt>
+                <dd><pre><code>base = reconciliation.apply(base, changes)</code></pre></dd>
+              </dl>
+            </section>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>express_trimmed</h1>
+          <dl>
+            <section class="suite">
+              <h1>reconcilliation</h1>
+              <dl>
+                <dt>diff time</dt>
+                <dd><pre><code>changes = reconciliation.diff(target, base)</code></pre></dd>
+                <dt>apply time</dt>
+                <dd><pre><code>base = reconciliation.apply(base, changes)</code></pre></dd>
+              </dl>
+            </section>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>firebase</h1>
+          <dl>
+            <section class="suite">
+              <h1>reconcilliation</h1>
+              <dl>
+                <dt>diff time</dt>
+                <dd><pre><code>changes = reconciliation.diff(target, base)</code></pre></dd>
+                <dt>apply time</dt>
+                <dd><pre><code>base = reconciliation.apply(base, changes)</code></pre></dd>
+              </dl>
+            </section>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>github</h1>
+          <dl>
+            <section class="suite">
+              <h1>reconcilliation</h1>
+              <dl>
+                <dt>diff time</dt>
+                <dd><pre><code>changes = reconciliation.diff(target, base)</code></pre></dd>
+                <dt>apply time</dt>
+                <dd><pre><code>base = reconciliation.apply(base, changes)</code></pre></dd>
+              </dl>
+            </section>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>wsj</h1>
+          <dl>
+            <section class="suite">
+              <h1>reconcilliation</h1>
+              <dl>
+                <dt>diff time</dt>
+                <dd><pre><code>changes = reconciliation.diff(target, base)</code></pre></dd>
+                <dt>apply time</dt>
+                <dd><pre><code>base = reconciliation.apply(base, changes)</code></pre></dd>
+              </dl>
+            </section>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>Express_trimmed, Zhang Shasha</h1>
+          <dl>
+          </dl>
+        </section>
+      </dl>
+    </section>
+
+  </body>
+</html>

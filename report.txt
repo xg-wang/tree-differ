@@ -1,0 +1,60 @@
+
+
+  correctness tests
+    commentNode
+      ✓ reconcilliation should pass (2ms)
+      ✓ zhang shasha should pass (7ms)
+    flipParentChild
+      ✓ reconcilliation should pass (2ms)
+      ✓ zhang shasha should pass (2ms)
+    insertChild
+      ✓ reconcilliation should pass (1ms)
+      ✓ zhang shasha should pass (3ms)
+    insertChild2
+      ✓ reconcilliation should pass
+      ✓ zhang shasha should pass (10ms)
+    insertLeaf
+      ✓ reconcilliation should pass (1ms)
+      ✓ zhang shasha should pass (1ms)
+    modifyAttrib
+      ✓ reconcilliation should pass (1ms)
+      ✓ zhang shasha should pass (4ms)
+    moveChild
+      ✓ reconcilliation should pass (1ms)
+      ✓ zhang shasha should pass (12ms)
+    nodeType
+      ✓ reconcilliation should pass
+      ✓ zhang shasha should pass
+    replaceText
+      ✓ reconcilliation should pass (1ms)
+      ✓ zhang shasha should pass (1ms)
+
+  performance tests
+    express
+      reconcilliation
+        ✓ diff time (7ms)
+        ✓ apply time (6ms)
+    express_trimmed
+      reconcilliation
+        ✓ diff time (2ms)
+        ✓ apply time (1ms)
+    firebase
+      reconcilliation
+        ✓ diff time (17ms)
+        ✓ apply time (21ms)
+    github
+      reconcilliation
+        ✓ diff time (23ms)
+        ✓ apply time (25ms)
+    wsj
+      reconcilliation
+        ✓ diff time (1ms)
+        ✓ apply time (360ms)
+    Express_trimmed, Zhang Shasha
+      - diff time
+      - apply time
+
+
+  28 passing (2s)
+  2 pending
+
